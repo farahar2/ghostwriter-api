@@ -24,4 +24,5 @@ class CampaignBlueprint extends Model
   public function rawContents(){
     return $this->hasMany(RawContent::class);
   }
+  
 }
