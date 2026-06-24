@@ -22,4 +22,5 @@ class RawContent extends Model
   public function generatedPosts(){
     return $this->hasMany(GeneratedPost::class);
   }
+  
 }
