@@ -2,25 +2,38 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RawContent extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
-      'content',
-      'status'
+        'user_id',
+        'blueprint_id',
+        'content',
+        'status',
     ];
 
-  public function user(){
-    return $this->belongsTo(User::class);
-  }
+    protected $casts = [
+        'status' => 'string',
+    ];
 
-  public function campaignBlueprint(){
-    return $this->belongsTo(CampaignBlueprint::class);
-  }
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 
-  public function generatedPosts(){
-    return $this->hasMany(GeneratedPost::class);
-  }
-  
+    public function campaignBlueprint(): BelongsTo
+    {
+        return $this->belongsTo(CampaignBlueprint::class, 'blueprint_id');
+    }
+
+    public function generatedPost(): HasOne
+    {
+        return $this->hasOne(GeneratedPost::class);
+    }
 }
