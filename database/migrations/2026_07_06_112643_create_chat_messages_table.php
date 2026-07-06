@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('raw_contents', function (Blueprint $table) {
+        Schema::create('chat_messages', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('blueprint_id')->constrained('campaign_blueprints')->cascadeOnDelete();
+            $table->foreignId('conversation_id')->constrained('conversations')->cascadeOnDelete();
+            $table->enum('role', ['user', 'assistant']);
             $table->text('content');
-            $table->enum('status', ['draft', 'archived', 'posted'])->default('draft');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('raw_contents');
+        Schema::dropIfExists('chat_messages');
     }
 };
