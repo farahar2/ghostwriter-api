@@ -1,17 +1,15 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 
-//Sans authentification
-Route::post('/auth/register', [AuthController::class, 'register']);
-Route::post('/auth/login', [AuthrController::class, 'login']);
-
-//Avec authentification
-Route::middleware('auth:sanctum')->group(function () {
-Route::post('/auth.logout', [AuthController::class, 'logout']);
-Route::get('/user', function (Request $request) {
-    return $request->user();
+// Routes publiques — sans authentification
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/login',    [AuthController::class, 'login']);
 });
+
+// Routes protégées — avec authentification Sanctum
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
 });
