@@ -13,5 +13,6 @@ Route::prefix('auth')->group(function () {
 // Routes protégées — avec authentification Sanctum
 Route::middleware('auth:sanctum')->group(function () {
 Route::post('/auth/logout', [AuthController::class, 'logout']);
-Route::apiResource('blueprints', CampaignBlueprintController::class);
+Route::apiResource('blueprints', CampaignBlueprintController::class)
+    ->parameters(['blueprints' => 'campaignBlueprint']);
 });
