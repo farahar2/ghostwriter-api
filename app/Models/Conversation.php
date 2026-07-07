@@ -7,21 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class CampaignBlueprint extends Model
+class Conversation extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'user_id',
-        'name',
-        'tone_description',
-        'max_characters',
-        'max_hashtags',
-        'extra_rules',
-    ];
-
-    protected $casts = [
-        'extra_rules' => 'array',
+        'generated_post_id',
     ];
 
     public function user(): BelongsTo
@@ -29,8 +21,13 @@ class CampaignBlueprint extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function rawContents(): HasMany
+    public function generatedPost(): BelongsTo
     {
-        return $this->hasMany(RawContent::class, 'blueprint_id');
+        return $this->belongsTo(GeneratedPost::class);
+    }
+
+    public function chatMessages(): HasMany
+    {
+        return $this->hasMany(ChatMessage::class);
     }
 }

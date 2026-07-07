@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('campaign_blueprints', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('name');
-            $table->text('tone_description');
-            $table->integer('max_characters');
-            $table->integer('max_hashtags');
-            $table->text('regle_supp');
+            $table->text('tone_description')->nullable();
+            $table->unsignedInteger('max_characters')->default(280);
+            $table->unsignedInteger('max_hashtags')->default(1);
+            $table->json('extra_rules')->nullable();
             $table->timestamps();
         });
     }
