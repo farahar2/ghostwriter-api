@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('tone_description');
             $table->integer('max_characters');
             $table->integer('max_hashtags');
-            $table->text('regle_supp');
+            $table->text('extra_rules');
             $table->timestamps();
         });
     }
