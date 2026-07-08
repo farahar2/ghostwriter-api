@@ -14,6 +14,7 @@ class Conversation extends Model
     protected $fillable = [
         'user_id',
         'generated_post_id',
+        'agent_conversation_uuid',
     ];
 
     public function user(): BelongsTo

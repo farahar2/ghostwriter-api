@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\StoreRawContentRequest;
 use App\Http\Resources\RawContentResource;
 use App\Jobs\ProcessRawContentJob;
+use App\Models\CampaignBlueprint;
 use App\Models\RawContent;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\JsonResponse;
@@ -35,15 +36,11 @@ class RawContentController extends Controller
      */
     public function store(StoreRawContentRequest $request): JsonResponse
     {
-        // Vérifier que le blueprint appartient à l'utilisateur connecté
-        $blueprint = $request->user()
-            ->campaignBlueprints()
-            ->findOrFail($request->blueprint_id);
-
-        // Créer le RawContent
+        // La validation dans StoreRawContentRequest garantit déjà
+        // que le blueprint existe ET appartient à l'utilisateur connecté
         $rawContent = RawContent::create([
             'user_id'      => $request->user()->id,
-            'blueprint_id' => $blueprint->id,
+            'blueprint_id' => $request->blueprint_id,
             'content'      => $request->content,
             'status'       => 'draft',
         ]);

@@ -1,0 +1,279 @@
+name: 'Generated Posts'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/posts
+    metadata:
+      custom: []
+      groupName: 'Generated Posts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List all generated posts for the authenticated user.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "raw_content_id": 1,
+                      "hook_propose": "Did you know AI can write your tweets?",
+                      "body_points": ["AI saves time", "AI maintains consistency"],
+                      "technical_readability_score": 75,
+                      "suggested_hashtags": ["#AI", "#TwitterTips"],
+                      "tone_compliance_justification": "Matches professional yet casual tone",
+                      "status": "draft",
+                      "created_at": "08/07/2026 14:30",
+                      "updated_at": "08/07/2026 14:30"
+                  }
+              ]
+          }
+        headers: []
+        description: ''
+    responseFields:
+      data.array:
+        custom: []
+        name: data.array
+        description: |-
+          Object[] List of generated posts.
+
+          Display a listing of the authenticated user's generated posts.
+        required: false
+        example: null
+        type: ''
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/posts/{generatedPost_id}'
+    metadata:
+      custom: []
+      groupName: 'Generated Posts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get a single generated post by ID.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      generatedPost_id:
+        custom: []
+        name: generatedPost_id
+        description: 'The ID of the generatedPost.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      generatedPost:
+        custom: []
+        name: generatedPost
+        description: 'The generated post ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      generatedPost_id: 16
+      generatedPost: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "id": 1,
+                  "raw_content_id": 1,
+                  "hook_propose": "Did you know AI can write your tweets?",
+                  "body_points": ["AI saves time", "AI maintains consistency"],
+                  "technical_readability_score": 75,
+                  "suggested_hashtags": ["#AI", "#TwitterTips"],
+                  "tone_compliance_justification": "Matches professional yet casual tone",
+                  "status": "draft",
+                  "created_at": "08/07/2026 14:30",
+                  "updated_at": "08/07/2026 14:30"
+              }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+              "message": "This action is unauthorized."
+          }
+
+          Display the specified generated post.
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - PATCH
+    uri: 'api/posts/{generatedPost_id}/status'
+    metadata:
+      custom: []
+      groupName: 'Generated Posts'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the status of a generated post.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      generatedPost_id:
+        custom: []
+        name: generatedPost_id
+        description: 'The ID of the generatedPost.'
+        required: true
+        example: 16
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      generatedPost:
+        custom: []
+        name: generatedPost
+        description: 'The generated post ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      generatedPost_id: 16
+      generatedPost: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      status:
+        custom: []
+        name: status
+        description: 'The new status. Must be one of: draft, archived, posted.'
+        required: true
+        example: posted
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      status: posted
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+              "message": "Post status updated successfully.",
+              "data": {
+                  "id": 1,
+                  "raw_content_id": 1,
+                  "hook_propose": "Did you know AI can write your tweets?",
+                  "body_points": ["AI saves time", "AI maintains consistency"],
+                  "technical_readability_score": 75,
+                  "suggested_hashtags": ["#AI", "#TwitterTips"],
+                  "tone_compliance_justification": "Matches professional yet casual tone",
+                  "status": "posted",
+                  "created_at": "08/07/2026 14:30",
+                  "updated_at": "08/07/2026 15:00"
+              }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+              "message": "This action is unauthorized."
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+              "message": "The given data was invalid.",
+              "errors": {
+                  "status": ["The status must be one of: draft, archived, posted."]
+              }
+          }
+
+          Update the status of the specified generated post.
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null

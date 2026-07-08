@@ -16,6 +16,28 @@ class GeneratedPostController extends Controller
     use AuthorizesRequests;
 
     /**
+     * @group Generated Posts
+     *
+     * List all generated posts for the authenticated user.
+     *
+     * @response 200 {
+     *     "data": [
+     *         {
+     *             "id": 1,
+     *             "raw_content_id": 1,
+     *             "hook_propose": "Did you know AI can write your tweets?",
+     *             "body_points": ["AI saves time", "AI maintains consistency"],
+     *             "technical_readability_score": 75,
+     *             "suggested_hashtags": ["#AI", "#TwitterTips"],
+     *             "tone_compliance_justification": "Matches professional yet casual tone",
+     *             "status": "draft",
+     *             "created_at": "08/07/2026 14:30",
+     *             "updated_at": "08/07/2026 14:30"
+     *         }
+     *     ]
+     * }
+     * @responseField data.array Object[] List of generated posts.
+     *
      * Display a listing of the authenticated user's generated posts.
      */
     public function index(Request $request): AnonymousResourceCollection
@@ -32,6 +54,31 @@ class GeneratedPostController extends Controller
     }
 
     /**
+     * @group Generated Posts
+     *
+     * Get a single generated post by ID.
+     *
+     * @urlParam generatedPost int required The generated post ID. Example: 1
+     *
+     * @response 200 {
+     *     "data": {
+     *         "id": 1,
+     *         "raw_content_id": 1,
+     *         "hook_propose": "Did you know AI can write your tweets?",
+     *         "body_points": ["AI saves time", "AI maintains consistency"],
+     *         "technical_readability_score": 75,
+     *         "suggested_hashtags": ["#AI", "#TwitterTips"],
+     *         "tone_compliance_justification": "Matches professional yet casual tone",
+     *         "status": "draft",
+     *         "created_at": "08/07/2026 14:30",
+     *         "updated_at": "08/07/2026 14:30"
+     *     }
+     * }
+     *
+     * @response 403 {
+     *     "message": "This action is unauthorized."
+     * }
+     *
      * Display the specified generated post.
      */
     public function show(Request $request, GeneratedPost $generatedPost): JsonResponse
@@ -46,6 +93,41 @@ class GeneratedPostController extends Controller
     }
 
     /**
+     * @group Generated Posts
+     *
+     * Update the status of a generated post.
+     *
+     * @urlParam generatedPost int required The generated post ID. Example: 1
+     *
+     * @bodyParam status string required The new status. Must be one of: draft, archived, posted. Example: posted
+     *
+     * @response 200 {
+     *     "message": "Post status updated successfully.",
+     *     "data": {
+     *         "id": 1,
+     *         "raw_content_id": 1,
+     *         "hook_propose": "Did you know AI can write your tweets?",
+     *         "body_points": ["AI saves time", "AI maintains consistency"],
+     *         "technical_readability_score": 75,
+     *         "suggested_hashtags": ["#AI", "#TwitterTips"],
+     *         "tone_compliance_justification": "Matches professional yet casual tone",
+     *         "status": "posted",
+     *         "created_at": "08/07/2026 14:30",
+     *         "updated_at": "08/07/2026 15:00"
+     *     }
+     * }
+     *
+     * @response 403 {
+     *     "message": "This action is unauthorized."
+     * }
+     *
+     * @response 422 {
+     *     "message": "The given data was invalid.",
+     *     "errors": {
+     *         "status": ["The status must be one of: draft, archived, posted."]
+     *     }
+     * }
+     *
      * Update the status of the specified generated post.
      */
     public function updateStatus(UpdatePostStatusRequest $request, GeneratedPost $generatedPost): JsonResponse

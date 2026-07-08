@@ -1,0 +1,269 @@
+name: 'Raw Content'
+description: ''
+endpoints:
+  -
+    custom: []
+    httpMethods:
+      - POST
+    uri: api/content/repurpose
+    metadata:
+      custom: []
+      groupName: 'Raw Content'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Submit raw content for AI processing.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      blueprint_id:
+        custom: []
+        name: blueprint_id
+        description: 'The ID of the campaign blueprint.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+      content:
+        custom: []
+        name: content
+        description: 'The raw text content (10-10000 chars).'
+        required: true
+        example: "Check out our new product launch! It's going to be amazing. Stay tuned for more details."
+        type: string
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanBodyParameters:
+      blueprint_id: 1
+      content: "Check out our new product launch! It's going to be amazing. Stay tuned for more details."
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 202
+        content: |-
+          {
+              "message": "Content submitted successfully. Processing in background.",
+              "data": {
+                  "id": 1,
+                  "blueprint_id": 1,
+                  "content": "Check out our new product launch! It's going to be amazing.",
+                  "status": "draft",
+                  "generated_post": null,
+                  "created_at": "08/07/2026 14:30",
+                  "updated_at": "08/07/2026 14:30"
+              }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 422
+        content: |-
+          {
+              "message": "The given data was invalid.",
+              "errors": {
+                  "blueprint_id": ["The selected blueprint does not exist."],
+                  "content": ["The content must be at least 10 characters."]
+              }
+          }
+
+          Store a newly created raw content and dispatch the processing job.
+        headers: []
+        description: ''
+    responseFields:
+      data:
+        custom: []
+        name: data
+        description: 'Object The created raw content record.'
+        required: false
+        example: null
+        type: object
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: api/content
+    metadata:
+      custom: []
+      groupName: 'Raw Content'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'List all raw content submissions for the authenticated user.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+              "data": [
+                  {
+                      "id": 1,
+                      "blueprint_id": 1,
+                      "content": "Check out our new product launch! It's going to be amazing.",
+                      "status": "draft",
+                      "generated_post": {
+                          "id": 1,
+                          "hook_propose": "Check out our new product...",
+                          "status": "draft"
+                      },
+                      "created_at": "08/07/2026 14:30",
+                      "updated_at": "08/07/2026 14:30"
+                  }
+              ]
+          }
+        headers: []
+        description: ''
+    responseFields:
+      data.array:
+        custom: []
+        name: data.array
+        description: |-
+          Object[] List of raw content records.
+
+          Display a listing of the authenticated user's raw contents.
+        required: false
+        example: null
+        type: ''
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
+  -
+    custom: []
+    httpMethods:
+      - GET
+    uri: 'api/content/{rawContent_id}'
+    metadata:
+      custom: []
+      groupName: 'Raw Content'
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get a single raw content record by ID.'
+      description: ''
+      authenticated: true
+      deprecated: false
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      rawContent_id:
+        custom: []
+        name: rawContent_id
+        description: 'The ID of the rawContent.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: false
+        nullable: false
+        deprecated: false
+      rawContent:
+        custom: []
+        name: rawContent
+        description: 'The raw content ID.'
+        required: true
+        example: 1
+        type: integer
+        enumValues: []
+        exampleWasSpecified: true
+        nullable: false
+        deprecated: false
+    cleanUrlParameters:
+      rawContent_id: 1
+      rawContent: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        custom: []
+        status: 200
+        content: |-
+          {
+              "data": {
+                  "id": 1,
+                  "blueprint_id": 1,
+                  "content": "Check out our new product launch!",
+                  "status": "draft",
+                  "generated_post": {
+                      "id": 1,
+                      "hook_propose": "Check out our new product...",
+                      "status": "draft"
+                  },
+                  "created_at": "08/07/2026 14:30",
+                  "updated_at": "08/07/2026 14:30"
+              }
+          }
+        headers: []
+        description: ''
+      -
+        custom: []
+        status: 403
+        content: |-
+          {
+              "message": "This action is unauthorized."
+          }
+
+          Display the specified raw content.
+        headers: []
+        description: ''
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6g43cv8PD1aE5beadkZfhV6'
+    controller: null
+    method: null
+    route: null
