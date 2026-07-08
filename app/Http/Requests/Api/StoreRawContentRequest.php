@@ -4,6 +4,7 @@ namespace App\Http\Requests\Api;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRawContentRequest extends FormRequest
 {
@@ -23,8 +24,14 @@ class StoreRawContentRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'blueprint_id' => 'required|integer|exists:campaign_blueprints,id',
-            'content'      => 'required|string|min:10|max:10000',
+            'blueprint_id' => [
+                'required',
+                'integer',
+                Rule::exists('campaign_blueprints', 'id')->where(function ($query) {
+                    $query->where('user_id', $this->user()->id);
+                }),
+            ],
+            'content' => 'required|string|min:10|max:10000',
         ];
     }
 
@@ -37,7 +44,8 @@ class StoreRawContentRequest extends FormRequest
     {
         return [
             'blueprint_id.required' => 'A campaign blueprint is required.',
-            'blueprint_id.exists'   => 'The selected blueprint does not exist.',
+            'blueprint_id.integer'  => 'The blueprint id must be a valid integer.',
+            'blueprint_id.exists'   => 'The selected blueprint does not exist or does not belong to you.',
             'content.required'      => 'The raw content is required.',
             'content.min'           => 'The content must be at least 10 characters.',
             'content.max'           => 'The content cannot exceed 10000 characters.',
